@@ -10,5 +10,7 @@ POST http://localhost:8000/api/v1/users/
 Content-Type: application/json
 
 {
-  "name": "Subodh"
+  "name": "Subodh",
+  "password": "11111",
+  "email": "subodh2adhikari@gmail.com"
 }
