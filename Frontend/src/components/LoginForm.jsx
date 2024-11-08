@@ -5,17 +5,10 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { postNewUser } from "../../helper/axiosHelper";
 
-export default function SignupForm() {
+export default function Login() {
   const [form, setForm] = useState({});
 
   const fields = [
-    {
-      label: "Name",
-      placeholder: "John Rambo",
-      required: true,
-      type: "text",
-      name: "name",
-    },
     {
       label: "Email",
       placeholder: "john@gmail.com",
@@ -29,13 +22,6 @@ export default function SignupForm() {
       required: true,
       type: "password",
       name: "password",
-    },
-    {
-      label: "Confirm Password",
-      placeholder: "******",
-      required: true,
-      type: "password",
-      name: "confirmPassword",
     },
   ];
 
@@ -60,7 +46,7 @@ export default function SignupForm() {
 
   return (
     <div className="p-4 border rounded">
-      <h2 className="mb-4">SignUp Now!</h2>
+      <h2 className="mb-4">Login Now!</h2>
       <Form onSubmit={handleOnSubmit}>
         {fields.map((input) => (
           <CustomInput key={input.name} {...input} onChange={handleOnChange} />
