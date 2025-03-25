@@ -2,6 +2,9 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
+import { MdLogout } from "react-icons/md";
+import { MdLogin } from "react-icons/md";
+import { IoCreateSharp } from "react-icons/io5";
 
 function Header() {
   return (
@@ -12,13 +15,13 @@ function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             <Link className="nav-link" to="/signup">
-              Sign Up
+              <IoCreateSharp /> Sign Up
             </Link>
             <Link className="nav-link" to="/">
-              Login
+              <MdLogin /> Login
             </Link>
             <Link className="nav-link" to="/">
-              Log Out
+              <MdLogout /> Log Out
             </Link>
           </Nav>
         </Navbar.Collapse>
