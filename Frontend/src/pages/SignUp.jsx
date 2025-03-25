@@ -8,10 +8,13 @@ export default function SignUp() {
   return (
     <Container className="p-5 ">
       <Row className="bg-dark p-5 rounded">
-        <Col className="d-flex justify-content-center align-items-center">
+        <Col
+          md={6}
+          className="d-flex justify-content-center align-items-center"
+        >
           <FinancialTips />
         </Col>
-        <Col>
+        <Col md={6}>
           <SignupForm />
         </Col>
       </Row>

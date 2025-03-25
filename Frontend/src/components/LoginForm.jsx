@@ -1,12 +1,17 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import CustomInput from "./CustomInput";
-import { useState } from "react";
 import { toast } from "react-toastify";
-import { postNewUser } from "../../helper/axiosHelper";
+import { loginUser } from "../../helper/axiosHelper";
+import { useForm } from "../hooks/useForm";
+
+const initialState = {
+  name: "",
+  email: "",
+};
 
 export default function Login() {
-  const [form, setForm] = useState({});
+  const { form, handleOnChange } = useForm(initialState);
 
   const fields = [
     {
@@ -25,22 +30,10 @@ export default function Login() {
     },
   ];
 
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  };
-
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    const { confirmPassword, ...rest } = form;
-    if (confirmPassword !== rest.password) {
-      return toast.error("Passwords do not match!");
-    }
-
-    const { status, message } = await postNewUser(rest);
+    console.log(form);
+    const { status, message } = await loginUser(form);
     toast[status](message);
   };
 

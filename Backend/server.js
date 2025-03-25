@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 const app = express();
-import userRouter from "./routers/userRouter.js";
-import { connectMongoDB } from "./config/mongoDBConfig.js";
+import userRouter from "./src/routes/userRoutes.js";
+import { connectMongoDB } from "./src/config/mongoDBConfig.js";
 
 const PORT = process.env.PORT || 8000;
 connectMongoDB();

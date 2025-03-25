@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { financialQuotes } from "../data/financialQoutes";
 import { TfiMoney } from "react-icons/tfi";
 
@@ -6,10 +6,14 @@ export default function FinancialTips() {
   const [showQuote, setShowQuote] = useState(financialQuotes[0]);
   const { quote, author } = showQuote;
 
-  setInterval(() => {
-    const random = Math.floor(Math.random() * financialQuotes.length);
-    setShowQuote(financialQuotes[random]);
-  }, 5000);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const random = Math.floor(Math.random() * financialQuotes.length);
+      setShowQuote(financialQuotes[random]);
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <div>
