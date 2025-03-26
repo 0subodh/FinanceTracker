@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
 import { MdLogin } from "react-icons/md";
 import { IoCreateSharp } from "react-icons/io5";
+import { MdDashboard } from "react-icons/md";
+import { GrTransaction } from "react-icons/gr";
 
 function Header() {
   return (
@@ -19,6 +21,12 @@ function Header() {
             </Link>
             <Link className="nav-link" to="/">
               <MdLogin /> Login
+            </Link>
+            <Link className="nav-link" to="/dashboard">
+              <MdDashboard /> Dashboard
+            </Link>
+            <Link className="nav-link" to="/transaction">
+              <GrTransaction /> Transaction
             </Link>
             <Link className="nav-link" to="/">
               <MdLogout /> Log Out
