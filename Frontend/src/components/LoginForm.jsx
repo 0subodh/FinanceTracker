@@ -4,6 +4,9 @@ import CustomInput from "./CustomInput";
 import { toast } from "react-toastify";
 import { loginUser } from "../../helper/axiosHelper";
 import { useForm } from "../hooks/useForm";
+import { useUser } from "../context/UserContext";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   password: "",
@@ -11,7 +14,15 @@ const initialState = {
 };
 
 export default function Login() {
+  const navigate = useNavigate();
+  const { user, setUser } = useUser();
   const { form, handleOnChange } = useForm(initialState);
+
+  useEffect(() => {
+    if (user?._id) {
+      navigate("/dashboard");
+    }
+  }, [user?._id, navigate]);
 
   const fields = [
     {
@@ -35,7 +46,12 @@ export default function Login() {
     console.log("Login form submitted:", form);
 
     try {
-      const { status, message, user, accessToken } = await loginUser(form);
+      const {
+        status,
+        message,
+        user: loggedInUser,
+        accessToken,
+      } = await loginUser(form);
 
       if (status !== "success") {
         throw new Error(message || "Login failed");
@@ -43,11 +59,12 @@ export default function Login() {
 
       // Handle successful login
       toast.success(message || "Login successful!");
-      console.log("Login success:", { user, accessToken });
+      console.log("Login success:", { loggedInUser, accessToken });
 
       // Store token and redirect
-      localStorage.setItem("authToken", accessToken);
-      window.location.href = "/dashboard";
+      setUser(loggedInUser);
+      localStorage.setItem("token", accessToken);
+      navigate("/dashboard");
     } catch (error) {
       handleLoginError(error);
     }
