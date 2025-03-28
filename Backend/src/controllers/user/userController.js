@@ -82,15 +82,11 @@ export const loginUser = async (req, res, next) => {
 
 export const getUser = async (req, res, next) => {
   try {
-    // 1. receive  the token
-    // 2. create auth middleware
-    // 3. validate the token
-    // 4. get user email from the token
-    // 5. get user by email
-
+    const user = req.user;
     res.status(200).json({
       status: "success",
-      user: "Here is the user profile",
+      message: "Here is the user profile",
+      user,
     });
   } catch (error) {
     res.status(500).json({

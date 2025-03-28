@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Login from "./pages/Login";
@@ -7,8 +8,15 @@ import DefaultLayout from "./components/layout/DefaultLayout";
 import Dashboard from "./pages/Dashboard";
 import Auth from "./components/auth/Auth";
 import Transaction from "./pages/Transaction";
+import { userAutoLogin } from "./utils/userAutoLogin";
+import { useUser } from "./context/UserContext";
 
 function App() {
+  const user = useUser();
+  useEffect(() => {
+    !user?._id && userAutoLogin();
+  }, [user?._id]);
+
   return (
     <div className="wrapper">
       <Routes>

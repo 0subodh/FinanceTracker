@@ -1,12 +1,17 @@
 import axios from "axios";
 const ROOTAPIENDPOINT = "http://localhost:8000/api/v1";
 
-async function apiProcessor({ method, url, data }) {
+const getToken = () => {
+  return localStorage.getItem("token");
+};
+
+async function apiProcessor({ method, url, data, headers }) {
   try {
     const response = await axios({
       method,
       url,
       data,
+      headers,
     });
 
     return response.data;
@@ -41,6 +46,18 @@ export const loginUser = (data) => {
     method: "post",
     url: ROOTAPIENDPOINT + "/users/login",
     data,
+  };
+  return apiProcessor(obj);
+};
+
+// GET User From Token when Application starts
+export const getUserFromToken = () => {
+  const obj = {
+    method: "get",
+    url: ROOTAPIENDPOINT + "/users",
+    headers: {
+      Authorization: getToken(),
+    },
   };
   return apiProcessor(obj);
 };
