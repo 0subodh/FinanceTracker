@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import { Navigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 
 export default function Auth({ children }) {
-  // TODO: Implement actual authentication check
-  const isLoggedIn = false;
+  const { isLoggedIn } = useUser(); // Get isLoggedIn from UserContext
+
   return isLoggedIn ? children : <Navigate to="/" replace />;
 }
 

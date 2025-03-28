@@ -4,6 +4,10 @@
 ### GET request to main route
 GET http://localhost:8000/
 
+### GET user info from the token
+GET http://localhost:8000/api/v1/users/
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQyOTg3MzQxLCJleHAiOjE3NDM1OTIxNDF9.dDMdqhVmFXURkQ-T0bVt6edYVtC_93egTEFpjbcoR7s
+
 
 ### POST New User
 POST http://localhost:8000/api/v1/users/
