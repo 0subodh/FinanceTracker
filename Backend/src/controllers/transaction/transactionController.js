@@ -1,4 +1,7 @@
-import { insertTransaction } from "../../models/transaction/transactionModel.js";
+import {
+  insertTransaction,
+  getTransactions,
+} from "../../models/transaction/transactionModel.js";
 
 export const createTransaction = async (req, res) => {
   try {
@@ -18,6 +21,26 @@ export const createTransaction = async (req, res) => {
         message: "Unable to add new transaction",
       });
     }
+  } catch (error) {
+    res.json({
+      status: "error",
+      message: error.message,
+    });
+  }
+};
+
+export const getAllTransactions = async (req, res) => {
+  try {
+    const { _id } = req.user;
+    if (!_id) {
+      throw new Error("Invalid User");
+    }
+    const transactions = (await getTransactions(_id)) || [];
+    res.json({
+      status: "success",
+      message: `${transactions.length} transactions found`,
+      data: transactions,
+    });
   } catch (error) {
     res.json({
       status: "error",

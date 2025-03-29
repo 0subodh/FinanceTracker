@@ -44,3 +44,8 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29t
   "amount": "55",
   "date": "2025-02-14"
 }
+
+
+### GET all transactions for a specific user
+GET http://localhost:8000/api/v1/transactions/
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAZ21haWwuY29tIiwiaWF0IjoxNzQyOTg3MzQxLCJleHAiOjE3NDM1OTIxNDF9.dDMdqhVmFXURkQ-T0bVt6edYVtC_93egTEFpjbcoR7s

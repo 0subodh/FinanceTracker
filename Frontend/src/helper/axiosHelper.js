@@ -74,3 +74,15 @@ export const postNewTransaction = (data) => {
   };
   return apiProcessor(obj);
 };
+
+// GET Fetch all transactions for an user
+export const fetchTransactions = () => {
+  const obj = {
+    method: "get",
+    url: ROOTAPIENDPOINT + "/transactions",
+    headers: {
+      Authorization: getToken(),
+    },
+  };
+  return apiProcessor(obj);
+};

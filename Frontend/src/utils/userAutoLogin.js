@@ -1,4 +1,4 @@
-import { getUserFromToken } from "../../helper/axiosHelper";
+import { getUserFromToken } from "../helper/axiosHelper";
 
 export async function userAutoLogin() {
   const token = localStorage.getItem("token");

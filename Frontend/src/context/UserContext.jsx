@@ -1,10 +1,22 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { fetchTransactions } from "../helper/axiosHelper";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // Initialize user as null (not logged in)
+  const [user, setUser] = useState(null);
+  const [transactions, setTransactions] = useState([]);
+
+  const getTransactions = async () => {
+    // call axios helper to call api
+    const response = await fetchTransactions();
+    console.log(response);
+    // receive data and mount to the transaction by setTransactions setter function
+    response.status === "success" && setTransactions(response.data);
+  };
+
+  // Initialize user as null (not logged in)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -33,7 +45,17 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser, isLoggedIn, login, logout }}>
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+        isLoggedIn,
+        login,
+        logout,
+        transactions,
+        getTransactions,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
