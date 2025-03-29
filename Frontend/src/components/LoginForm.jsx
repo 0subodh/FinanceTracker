@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -32,16 +32,20 @@ const INITIAL_STATE = {
 };
 
 export default function Login() {
+  const location = useLocation();
+  console.log(location);
   const navigate = useNavigate();
   const { user, setUser } = useUser();
   const { form, handleOnChange, resetForm } = useForm(INITIAL_STATE);
 
+  const goTo = location?.state?.from?.pathname || "/";
+
   // Redirect if already logged in
   useEffect(() => {
     if (user?._id) {
-      navigate("/dashboard");
+      navigate(goTo);
     }
-  }, [user?._id, navigate]);
+  }, [user?._id, navigate, goTo]);
 
   const handleLoginSuccess = (loggedInUser, accessToken, message) => {
     toast.success(message || "Login successful!");

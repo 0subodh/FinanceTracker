@@ -12,10 +12,15 @@ import { userAutoLogin } from "./utils/userAutoLogin";
 import { useUser } from "./context/UserContext";
 
 function App() {
-  const user = useUser();
+  const { user, setUser } = useUser();
   useEffect(() => {
-    !user?._id && userAutoLogin();
+    !user?._id && updateUser();
   }, [user?._id]);
+
+  const updateUser = async () => {
+    const user = await userAutoLogin();
+    setUser(user);
+  };
 
   return (
     <div className="wrapper">

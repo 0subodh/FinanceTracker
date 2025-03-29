@@ -21,13 +21,14 @@ export async function auth(req, res, next) {
       user.password = undefined;
       req.user = user;
       next();
+    } else {
+      return res.status(403).json({
+        status: "error",
+        message: "Invalid token",
+      });
     }
-    res.status(403).json({
-      status: "error",
-      message: "Invalid token",
-    });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       status: "error",
       message: error.message,
     });
