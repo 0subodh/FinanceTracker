@@ -61,3 +61,16 @@ export const getUserFromToken = () => {
   };
   return apiProcessor(obj);
 };
+
+// POST Create New Transaction
+export const postNewTransaction = (data) => {
+  const obj = {
+    method: "post",
+    url: ROOTAPIENDPOINT + "/transactions",
+    data,
+    headers: {
+      Authorization: getToken(),
+    },
+  };
+  return apiProcessor(obj);
+};

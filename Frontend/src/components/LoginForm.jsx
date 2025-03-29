@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import CustomInput from "./CustomInput";
-import { loginUser } from "../../helper/axiosHelper";
+import { loginUser } from "../helper/axiosHelper";
 import { useForm } from "../hooks/useForm";
 import { useUser } from "../context/UserContext";
 
