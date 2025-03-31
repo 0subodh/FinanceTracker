@@ -3,6 +3,7 @@ import CustomInput from "./CustomInput";
 import Button from "react-bootstrap/Button";
 import { useForm } from "../hooks/useForm";
 import { postNewTransaction } from "../helper/axiosHelper";
+import { useUser } from "../context/UserContext";
 import { toast } from "react-toastify";
 
 const FORM_FIELDS = [
@@ -37,6 +38,7 @@ const INITIAL_STATE = {
 
 function TransactionForm() {
   const { form, setForm, handleOnChange } = useForm(INITIAL_STATE);
+  const { getTransactions } = useUser();
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +50,10 @@ function TransactionForm() {
     const { status, message } = await pending;
     toast[status](message);
 
-    status === "success" && setForm(INITIAL_STATE);
+    if (status === "success") {
+      setForm(INITIAL_STATE);
+      getTransactions();
+    }
 
     // TODO call the function to fetch all transactions
   };
