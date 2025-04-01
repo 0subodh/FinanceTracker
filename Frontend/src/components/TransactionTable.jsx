@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 function TransactionTable() {
   const [displayTransactions, setDisplayTransactions] = useState([]);
-  const { transactions } = useUser();
+  const { transactions, toggleModal } = useUser();
 
   useEffect(() => {
     setDisplayTransactions(transactions);
@@ -28,7 +28,7 @@ function TransactionTable() {
           <Form.Control type="text" onChange={handleOnSearch} />
         </div>
         <div>
-          <Button>
+          <Button onClick={() => toggleModal(true)}>
             <FaPlusCircle /> Add New Transaction
           </Button>
         </div>

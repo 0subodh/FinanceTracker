@@ -38,7 +38,7 @@ const INITIAL_STATE = {
 
 function TransactionForm() {
   const { form, setForm, handleOnChange } = useForm(INITIAL_STATE);
-  const { getTransactions } = useUser();
+  const { getTransactions, toggleModal } = useUser();
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -56,11 +56,11 @@ function TransactionForm() {
     }
 
     // TODO call the function to fetch all transactions
+    toggleModal(false);
   };
 
   return (
     <div className="p-4 border rounded">
-      <h2 className="mb-4">Add New Transaction!</h2>
       <Form onSubmit={handleOnSubmit}>
         <Form.Group className="mb-3">
           <Form.Label> Transaction Type</Form.Label>
