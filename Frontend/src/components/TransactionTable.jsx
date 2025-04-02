@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 function TransactionTable() {
   const [displayTransactions, setDisplayTransactions] = useState([]);
   const { transactions, toggleModal } = useUser();
+  const [idsToDelete, setIdsToDelete] = useState([]);
 
   useEffect(() => {
     setDisplayTransactions(transactions);
@@ -20,6 +21,24 @@ function TransactionTable() {
     );
     setDisplayTransactions(filteredTransactions);
   };
+
+  const handleOnSelect = (e) => {
+    const { checked, value } = e.target;
+    console.log(checked, value);
+    if (value === "all") {
+      checked
+        ? setIdsToDelete(transactions.map((t) => t._id))
+        : setIdsToDelete([]);
+      return;
+    }
+    if (checked) {
+      setIdsToDelete([...idsToDelete, value]);
+    } else {
+      setIdsToDelete(idsToDelete.filter((id) => id !== value));
+    }
+  };
+
+  console.log(idsToDelete);
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -32,6 +51,14 @@ function TransactionTable() {
             <FaPlusCircle /> Add New Transaction
           </Button>
         </div>
+      </div>
+      <div>
+        <Form.Check
+          label="Select All Transactions"
+          value="all"
+          onChange={handleOnSelect}
+          checked={idsToDelete.length === transactions.length}
+        />
       </div>
       <Table striped hover>
         <thead>
@@ -47,9 +74,16 @@ function TransactionTable() {
         <tbody>
           {displayTransactions.map((t, index) => {
             return (
-              <tr key={index}>
+              <tr key={t._id}>
                 <td>{index + 1}</td>
-                <td>{t.date.slice(0, 10)}</td>
+                <td>
+                  <Form.Check
+                    label={t.date.slice(0, 10)}
+                    value={t._id}
+                    onChange={handleOnSelect}
+                    checked={idsToDelete.includes(t._id)}
+                  />
+                </td>
                 <td>{t.title}</td>
                 <td className="text-danger">
                   {t.type === "expense" ? t.amount : ""}

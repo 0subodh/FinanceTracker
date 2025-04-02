@@ -1,6 +1,7 @@
 import {
   insertTransaction,
   getTransactions,
+  deleteTransactions,
 } from "../../models/transaction/transactionModel.js";
 
 export const createTransaction = async (req, res) => {
@@ -42,6 +43,30 @@ export const getAllTransactions = async (req, res) => {
       data: transactions,
     });
   } catch (error) {
+    res.json({
+      status: "error",
+      message: error.message,
+    });
+  }
+};
+
+export const deleteTransaction = async (req, res) => {
+  try {
+    // 1. receive ids[] and _id of the user
+    // 2. perform the deletion query
+    const { _id } = req.user;
+    const ids = req.body;
+
+    console.log(ids, _id);
+    const result = await deleteTransactions(ids, _id);
+    console.log(result);
+
+    res.json({
+      status: "success",
+      message: `Deleted ${result.deletedCount} transactions`,
+    });
+  } catch (error) {
+    console.log(error);
     res.json({
       status: "error",
       message: error.message,
