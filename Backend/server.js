@@ -5,6 +5,7 @@ import userRouter from "./src/routes/userRoutes.js";
 import transactionRouter from "./src/routes/transactionRoutes.js";
 import { connectMongoDB } from "./src/config/mongoDBConfig.js";
 import { auth } from "./src/middlewares/authMiddleware.js";
+import { errorHandler } from "./src/middlewares/errorHandlerMiddleware.js";
 
 const PORT = process.env.PORT || 8000;
 connectMongoDB();
@@ -21,6 +22,16 @@ app.get("/", (req, res) => {
     message: "Sever is Live",
   });
 });
+
+// 404 page not found
+app.use("*", (req, res, next) => {
+  const error = new Error("Page Not Found");
+  error.statusCode = 404;
+  next(error);
+});
+
+// Global Error Handler
+app.use(errorHandler);
 
 app.listen(PORT, (error) => {
   error

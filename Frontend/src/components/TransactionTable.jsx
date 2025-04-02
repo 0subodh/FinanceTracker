@@ -4,10 +4,12 @@ import { FaPlusCircle } from "react-icons/fa";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useEffect, useState } from "react";
+import { deleteTransactions } from "../helper/axiosHelper.js";
+import { toast } from "react-toastify";
 
 function TransactionTable() {
   const [displayTransactions, setDisplayTransactions] = useState([]);
-  const { transactions, toggleModal } = useUser();
+  const { transactions, toggleModal, getTransacations } = useUser();
   const [idsToDelete, setIdsToDelete] = useState([]);
 
   useEffect(() => {
@@ -35,6 +37,21 @@ function TransactionTable() {
       setIdsToDelete([...idsToDelete, value]);
     } else {
       setIdsToDelete(idsToDelete.filter((id) => id !== value));
+    }
+  };
+
+  const handleOnDelete = async () => {
+    if (confirm("Are you sure you want to delete these transactions?")) {
+      const pending = deleteTransactions(idsToDelete);
+      toast.promise(pending, {
+        pending: "Please wait..",
+      });
+      const { status, message } = await pending;
+      toast[status](message);
+      if (status === "success") {
+        getTransacations();
+        setIdsToDelete([]);
+      }
     }
   };
 
@@ -110,6 +127,13 @@ function TransactionTable() {
           </tr>
         </tbody>
       </Table>
+      {idsToDelete.length > 0 && (
+        <div className="d-grid">
+          <Button variant="danger" onClick={handleOnDelete}>
+            Delete {idsToDelete.length} Transaction(s)
+          </Button>
+        </div>
+      )}
     </>
   );
 }
