@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
   });
 });
 
-// 404 page not found
+// 404 Page Not Found
 app.use("*", (req, res, next) => {
   const error = new Error("Page Not Found");
   error.statusCode = 404;

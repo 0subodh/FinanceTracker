@@ -61,7 +61,12 @@ function TransactionTable() {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div>{displayTransactions.length} Transaction(s) Found</div>
         <div>
-          <Form.Control type="text" onChange={handleOnSearch} />
+          <Form.Control
+            placeholder="Search Transactions"
+            className="me-2"
+            type="text"
+            onChange={handleOnSearch}
+          />
         </div>
         <div>
           <Button onClick={() => toggleModal(true)}>

@@ -9,9 +9,12 @@ import { MdDashboard } from "react-icons/md";
 import { GrTransaction } from "react-icons/gr";
 
 import { useUser } from "../../context/UserContext";
+import { useState } from "react";
 
 function Header() {
   const { user, setUser } = useUser();
+
+  const [showMenu, setShowMenu] = useState(false);
 
   const handleOnLogout = () => {
     // 1. delete 'token' from the localStorage
@@ -27,7 +30,11 @@ function Header() {
     <Navbar expand="lg" variant="dark" className="bg-body-dark">
       <Container>
         <Navbar.Brand href="#home">Finance Tracker</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <div> Welcome {user?.name}</div>
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          onClick={() => setShowMenu(true)}
+        />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             {user?._id ? (
