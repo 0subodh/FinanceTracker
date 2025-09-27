@@ -125,3 +125,51 @@ The application is built using the **MERN stack** (MongoDB, Express.js, React.js
 ## License
 
 This project is open-source and available under the MIT LIcense.
+
+
+#!/bin/bash
+
+echo "=============================="
+echo "   MacBook Health Check Report"
+echo "=============================="
+
+# macOS & Hardware Info
+echo -e "\n--- macOS & Hardware ---"
+sw_vers
+system_profiler SPHardwareDataType | grep -E "Model Identifier|Processor Name|Processor Speed|Memory|Serial Number"
+
+# Battery Health
+echo -e "\n--- Battery Health ---"
+system_profiler SPPowerDataType | grep -E "Cycle Count|Condition"
+
+# Storage Info & SMART
+echo -e "\n--- Storage Info ---"
+diskutil info / | grep -E "Device Identifier|Device / Media Name|Protocol|SMART Status"
+
+# CPU & RAM
+echo -e "\n--- CPU & RAM ---"
+sysctl -n machdep.cpu.brand_string | awk '{print "CPU:", $0}'
+echo "RAM: $(($(sysctl -n hw.memsize) / 1024 / 1024 / 1024)) GB"
+
+# GPU
+echo -e "\n--- GPU Info ---"
+system_profiler SPDisplaysDataType | grep "Chipset Model"
+
+# Wi-Fi & Bluetooth
+echo -e "\n--- Wi-Fi ---"
+system_profiler SPAirPortDataType | grep "Supported PHY Modes"
+echo -e "\n--- Bluetooth ---"
+system_profiler SPBluetoothDataType | grep "HCI Version"
+
+# Recent Shutdowns
+echo -e "\n--- Shutdown Logs (last 24h) ---"
+log show --predicate 'eventMessage contains "Previous shutdown cause"' --last 24h | tail -n 10
+
+# Warranty Check Reminder
+echo -e "\n--- Warranty Check ---"
+system_profiler SPHardwareDataType | grep "Serial Number"
+echo "→ Use the serial number above at https://checkcoverage.apple.com to verify warranty/repair status."
+
+echo -e "\n=============================="
+echo " Report Finished "
+echo "=============================="
